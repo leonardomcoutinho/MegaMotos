@@ -1,0 +1,46 @@
+/*LOGIN*/
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-login {
+    box-shadow: 0px 10px 20px #6a6769;
+    border-radius: 7px;
+}
+
+.card-login input {
+    width: 350px;
+}
+
+.card-login button {
+    color: #fff;
+    background-color: #ff1616;
+    width: 40%;
+}
+
+/*DASHBOARD*/
+.dashboard {
+    height: 85vh;
+    display: flex;
+}
+
+.aside-dash {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    
+}
+.aside-dash ul li{
+    list-style: none;
+    text-decoration: none;    
+}
+.aside-dash ul li a{
+    text-decoration: none;
+    color: #fff;
+}
+.section-dash {
+    width: 80%;
+    
+}
