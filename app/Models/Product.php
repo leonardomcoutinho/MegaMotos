@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Category;
 use App\Models\Inventory;
 use App\Models\AllLogInventory;
+use App\Models\Sell;
 
 class Product extends Model
 {
@@ -21,5 +22,8 @@ class Product extends Model
     }  
     public function allLogInventories(){
         return $this->hasMany(AllLogInventory::class);
-    }    
+    }
+    public function sell(){
+        return $this->hasMany(Sell::class);
+    }   
 }

@@ -4,7 +4,7 @@
 @section('dashboard')
 <div class="products m-3">
   <div class="w-100 text-end">
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Cadastrar Produto</button> 
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Cadastrar Produto</button> 
   </div>
   <div class="title mt-3">
     <h3 class="text-center">Lista de produtos</h3> 

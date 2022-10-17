@@ -17,12 +17,14 @@
     <!-- Bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script> 
+    @yield('style')     
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">                
+        <nav class="navbar navbar-expand-md navbar-light bg-white ">
+            <div class="container"> 
+                <a href="{{route('admin')}}"><img src="/img/logo.png" alt="" width="100px"></a>               
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -65,19 +67,88 @@
         <main class="py-4">
             <div class="container-fluid">
                 <div class="dashboard">
-                    <aside class="aside-dash bg-dark">
-                        <nav>
-                            <div>
-                                <p class="text-light bg-primary text-center py-3">Menu</p>
-                            </div>                    
-                            <ul>
-                                <li class="my-3"><a href="#" class="venda btn  btn-success"><i class="bi bi-plus-lg me-2"></i>Lançar Venda/Serviço</a></li>
-                                <li class="my-3"><a href="{{route('products')}}" class="produtos"><i class="bi bi-bag me-2"></i>Produtos</a></li>
-                                <li class="my-3"><a href="#" class="categoria"><i class="bi bi-tag me-2"></i>Categoria</a></li>
-                                <li class="my-3"><a href="{{route('inventory')}}" class="estoque"><i class="bi bi-bank me-2"></i>Estoque</a></li>
+                    <div class="aside-dash p-3 text-bg-dark">
+                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                          <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                          <span class="fs-4">Menu</span>
+                        </a>
+                        <hr>
+                        <ul class="nav nav-pills flex-column mb-auto">
+                          <li class="nav-item">
+                            <a href="{{route('sell')}}" class="nav-link active bg-danger" aria-current="page">
+                            <i class="bi bi-plus-lg me-2"></i>
+                              Lançar Venda/Serviço
+                            </a>
+                          </li>
+                          <li>
+                            <a href="{{route('products')}}" class="nav-link text-white">
+                            <i class="bi bi-bag me-2"></i>
+                              Produtos
+                            </a>
+                          </li>                          
+                          <li>
+                            <a href="{{route('inventory')}}" class="nav-link text-white">
+                            <i class="bi bi-bank me-2"></i>
+                              Estoque
+                            </a>
+                          </li>                           
+                          <div class="dropdown">
+                            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-card-list me-2"></i>Relatorios
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="{{route('relatory')}}"><i class="bi bi-cash me-2"></i>Vendas/Serviço</a></li>
+                              <li><a class="dropdown-item" href="#"><i class="bi bi-bag me-2"></i>Produtos</a></li>
+                              <li><a class="dropdown-item" href="#"><i class="bi bi-bank me-2"></i>Estoque</a></li>
                             </ul>
-                        </nav>
-                    </aside>
+                          </div> 
+                          <div class="dropdown">
+                            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-gear me-2"></i>Configuração
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="#"><i class="bi bi-tag me-2"></i>Categorias</a></li>
+                              <li><a class="dropdown-item" href="#"><i class="bi bi-wallet2 me-2"></i>Forma de Recebimento</a></li>
+                              <li><a class="dropdown-item" href="{{route('tariff')}}"><i class="bi bi-credit-card-2-back me-2"></i>Tarifas Cartão</a></li>
+                            </ul>
+                          </div>                       
+                        </ul>
+                        <hr>
+                        <div class="dropdown">                          
+                            <ul class="navbar-nav ms-auto">
+                              <!-- Authentication Links -->
+                              @guest
+                                  @if (Route::has('login'))
+                                      <li class="nav-item">
+                                          <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                      </li>
+                                  @endif
+      
+                                  @if (Route::has('register'))
+                                      <li class="nav-item">
+                                          <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                      </li>
+                                  @endif
+                              @else
+                                  <li class="nav-item dropdown">
+                                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                          {{ Auth::user()->name }}
+                                      </a>
+                                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                          <a class="dropdown-item" href="{{ route('logout') }}"
+                                              onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                              Sair
+                                          </a>
+                                          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                              @csrf
+                                          </form>
+                                      </div>
+                                  </li>
+                              @endguest
+                          </ul>
+                        </div>
+                    </div>                    
                     <section class="section-dash">
                         <div class="row">
                             @if (session('error'))
@@ -97,5 +168,6 @@
             </div>                         
         </main>
     </div>
+    @yield('scripts')   
 </body>
 </html>

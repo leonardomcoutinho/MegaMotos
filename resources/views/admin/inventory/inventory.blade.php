@@ -3,8 +3,8 @@
     
 @section('dashboard')
     <div class="m-3">
-        <div class="add-estoque">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Lançar Item</button>
+        <div class="add-estoque w-100 text-end">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Lançar Item</button>
         </div>
         <table class="table text-start table-striped">
             <thead>
@@ -47,7 +47,7 @@
                     <select class="form-select" name="product_id" id="product_id">
                         <option selected>Selecione o Produto</option>                    
                         @foreach ($products as $item)
-                        <option value="{{$item->id}}">{{$item->name}}</option>
+                        <option value="{{$item->id}}">{{$item->name}} - {{$item->description}}</option>
                         @endforeach
                     </select>         
                 </div>

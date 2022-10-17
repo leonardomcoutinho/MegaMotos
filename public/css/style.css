@@ -1,3 +1,10 @@
+body{
+    background-image: url(/img/back.png);
+    z-index: 0;
+}
+#app nav{
+    box-shadow: 0px 4px 10px black;
+}
 /*LOGIN*/
 .login {
     display: flex;
@@ -24,23 +31,40 @@
 .dashboard {
     height: 85vh;
     display: flex;
+    box-shadow: 4px 4px 10px black;    
+    border-radius: 7px;
+    background-color: #fff;  
 }
 
 .aside-dash {
-    width: 20%;
+    width: 280px;
     display: flex;
     flex-direction: column;
-    
-}
-.aside-dash ul li{
-    list-style: none;
-    text-decoration: none;    
-}
-.aside-dash ul li a{
-    text-decoration: none;
-    color: #fff;
+    border-radius: 7px 0px 0px 7px;
 }
 .section-dash {
-    width: 80%;
-    
+    width: 100%;
+    max-height: 85vh;
+    overflow: auto;
 }
+
+/*INPUTS SELL*/
+#itens{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.select-prod{
+    width: 50%;    
+}
+#itens select{
+    width: 100%;
+}
+
+.ddd .qtd{
+ width: 80px;
+}
+.tariff-tt{
+    width: 300px;
+}
+
+
