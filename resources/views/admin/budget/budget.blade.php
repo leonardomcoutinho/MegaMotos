@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Venda/Serviço - MEGA MOTOS')
+@section('title', 'Orçamento - MEGA MOTOS')
 @section('style')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> 
 @endsection
@@ -9,9 +9,9 @@
     
 </script>
     <div class="mx-3">
-        <h3 class="text-center my-3">Lançar Venda/Serviço</h3>
+        <h3 class="text-center my-3">Orçamento</h3>
         <div class="">
-        <form action="{{route('store_sell')}}" method="POST" class="m-3">
+        <form action="{{route('store_budget')}}" method="POST" class="m-3">
             @csrf
             <div class="cliente d-flex gap-5">
                 <div class="mb-3 cliente-name">
@@ -23,31 +23,6 @@
                     <input type="text" class="form-control" id="contact" name="contact" placeholder="Telefone para Contato">                    
                 </div>
             </div>
-            <div class="mb-3 d-flex w-100 align-items-center gap-5 recebimento">
-                <div class="fpag">
-                    <label for="fpay_id" class="form-label">Selecione a Forma do Recebimento</label>
-                    <select class="form-select" name="fpay_id" id="fpay_id" aria-label="Default select example">
-                        <option selected disabled>Forma de Recebimento</option>
-                        @foreach ($fpay as $item)
-                            <option value="{{$item->id}}">{{$item->fpay}}</option>
-                        @endforeach
-                    </select> 
-                </div>
-                <div class="parcel ms-3">
-                    <label for="cardTariff" class="form-label">Selecione o Método</label>
-                    <select class="form-select" name="cardTariff" id="cardTariff" aria-label="Default select example">  
-                            <option selected disabled> Selecione...</option>                  
-                        @foreach ($cardTariff as $item)
-                            <option value="{{$item->percentual}}">{{$item->name}}</option>
-                        @endforeach
-                    </select> 
-                </div> 
-                <div class="ms-3 document">
-                    <label for="document" class="form-label">Nº do Documento</label>                 
-                    <input type="text" class="form-control " name="document" id="document" placeholder="Nº Comprovante">                    
-                </div>             
-            </div>
-            
             <div class="mb-3">
                 <div class="form-floating">
                     <textarea class="form-control" name="description_service" placeholder="Leave a comment here" id="description_service" style="height: 100px"></textarea>
@@ -55,7 +30,7 @@
                 </div>
             </div>
             <div class="d-flex align-items-center gap-3">
-                 <h6>Material Utilizado</h6>
+                 <h6>Material</h6>
                  <button type="button" class="btn btn-danger" id="add"> + </button>
             </div>                       
             <div id="itens" class="w-100 mb-3">
@@ -68,21 +43,19 @@
                             @endforeach                        
                         </select>
                         <input type="number" placeholder="Qtd" class="form-control ms-3 qtd" name="product_1_qtd" id="qtd1">
-                        <input type="text" placeholder="R$ Unit" class="form-control ms-3 qtd" name="product_1_value" id="valor1">                        
+                        <input type="text" placeholder="R$" class="form-control ms-3 qtd" name="product_1_value" id="valor1">
                     </div>                   
                 </div>
             </div>
             <div class="mb-3 d-flex mb-3" id="tt">
-                <div class="me-3">
-                    <label for="price" class="form-label">Valor R$:
-                    <input type="text" class="form-control" name="price" id="price"> 
-                    </label>
-                </div>
+                <div class="me-3 prices">
+                    <label for="price" class="form-label">Valor R$:<input type="text" class="form-control" name="price" id="price"></label>
+                </div> 
                 <div class="me-3">
                     <label for="price" class="form-label">Mão de Obra R$:
                     <input type="text" class="form-control" name="labor" id="price" value="0"> 
                     </label>
-                </div> 
+                </div>
                 <div class="me-3">
                     <label for="discount" class="form-label">Desconto R$:
                     <input type="text" class="form-control input_fields_wrap" name="discount" id="discount" value="0">
@@ -97,50 +70,36 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
- $(document).ready(function() {
-  var max_fields = 10; //maximum input boxes allowed
-  var wrapper = $("#itens"); //Fields wrapper
-  var add_button = $("#add"); //Add button ID
+  $(document).ready(function() {
+   var max_fields = 10; //maximum input boxes allowed
+   var wrapper = $("#itens"); //Fields wrapper
+   var add_button = $("#add"); //Add button ID
 
-  var x = 1; //initlal text box count
-  $(add_button).click(function(e) { //on add input button click
-    e.preventDefault();
-    var length = wrapper.find("select").length;
+   var x = 1; //initlal text box count
+   $(add_button).click(function(e) { //on add input button click
+     e.preventDefault();
+     var length = wrapper.find("select").length;
 
-    if (x < max_fields) { //max input box allowed
-      x++; //text box increment
-      $(wrapper).append('<div class="form-group mt-3 d-flex w-100 ddd"><div class="select-prod d-flex flex-nowrap"><select class="form-select" name="product_'+(length+1)+'_id" aria-label="Default select example"><option selected>Selecione Outro Material</option>@foreach ($inventory as $item) <option value="{{$item->id}}">{{$item->product->name}} - {{$item->product->description}}</option>@endforeach</select><input type="number" placeholder="Qtd" class="form-control ms-3 qtd" name="product_'+(length+1)+'_qtd" id="qtd'+(length+1)+'"><input type="text" placeholder="R$ Unit" class="form-control ms-3 qtd" name="product_1_value" id="valor'+(length+1)+'"></div><button type="button" class="btn btn-danger ms-3" id="remove"> - </button></div>'); //add input box
-    }    
-  });
+     if (x < max_fields) { //max input box allowed
+       x++; //text box increment
+       $(wrapper).append('<div class="form-group mt-3 d-flex w-100 ddd"><div class="select-prod d-flex flex-nowrap"><select class="form-select" name="product_'+(length+1)+'_id" aria-label="Default select example"><option selected>Selecione Outro Material</option>@foreach ($inventory as $item) <option value="{{$item->id}}">{{$item->product->name}} - {{$item->product->description}}</option>@endforeach</select><input type="number" placeholder="Qtd" class="form-control ms-3 qtd" name="product_'+(length+1)+'_qtd" id="qtd'+(length+1)+'"><input type="text" placeholder="R$" class="form-control ms-3 qtd" name="product_'+(length+1)+'_value" id="valor'+(length+1)+'"></div><button type="button" class="btn btn-danger ms-3" id="remove"> - </button></div>'); //add input box
+     }
+    //Fazendo com que cada uma escreva seu name
+    
+   });
 
-  $(wrapper).on("click", "#remove", function(e) { //user click on remove text
-    e.preventDefault();
-    $(this).parent('div').remove();
-    x--;
-  })
+   $(wrapper).on("click", "#remove", function(e) { //user click on remove text
+     e.preventDefault();
+     $(this).parent('div').remove();
+     x--;
+   })
 
-});
+ });
 
-    // Ocultando e exibindo de acordo com o valor do select
-    $(document).ready(function() {
-        $('.parcel').hide();
-        $('.document').hide();        
-            $("#fpay_id").change(function(){
-                $('.parcel').hide();        
-                $('.document').hide();        
-                var option = $(this).val();
-                if(option == 1){
-                    $('.parcel').show();
-                    $('.document').show();
-                }  
-                if(option == 3){                    
-                    $('.document').show();
-                }              
-        });
-    });
+        
 
-    $('#itens').change( function(){
-        var valor1 = $('#valor1').val()  
+     $('#itens').change( function(){
+        var valor1 = $('#valor1').val()    
         var valor2 = $('#valor2').val()    
         var valor3 = $('#valor3').val()        
         var valor4 = $('#valor4').val()        
@@ -162,11 +121,9 @@
         
         $('#price').keyup(function(){
             if(valor1){
-                
                 var v1 = parseFloat(valor1.replace(",", "."))
                 var q1 = parseInt(qtd1)
-                console.log(q1)
-                var soma = v1 * q1
+                var soma = (v1 * q1)
             }
             if(valor1 && valor2){
                 var v2 = parseFloat(valor2.replace(",", "."))
@@ -208,9 +165,35 @@
                 var q9 = parseInt(qtd9)
                 var soma = parseFloat((v1 * q1)+(v2 * q2)+(v3 * q3)+(v4 * q4)+(v5 * q5)+(v6 * q6)+(v7 * q7)+(v8 * q8)+(v9 * q9))
             }
-            console.log(soma)
+            //var total = number_format(soma, 2, '.', ',')
+            
             $('#price').val(soma)
         })
-    })
+
+         /* Inclui o input no elemento body */
+        
+     })
+     
+   
+    
+    
+
+    // // Ocultando e exibindo de acordo com o valor do select
+    // $(document).ready(function() {
+    //     $('.parcel').hide();
+    //     $('.document').hide();        
+    //         $("#fpay_id").change(function(){
+    //             $('.parcel').hide();        
+    //             $('.document').hide();        
+    //             var option = $(this).val();
+    //             if(option == 1){
+    //                 $('.parcel').show();
+    //                 $('.document').show();
+    //             }  
+    //             if(option == 3){                    
+    //                 $('.document').show();
+    //             }              
+    //     });
+    // });
 </script>
 @endsection  

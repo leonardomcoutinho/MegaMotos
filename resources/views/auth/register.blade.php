@@ -2,16 +2,15 @@
 
 @section('content')
 <div class="container">
-    <div class="login flex-column">
-        <div class="img-login mb-3">
-            <img src="/img/logo.png" alt="Mega Motos" class="img-fluid">
-        </div>          
+    <div class="login flex-column">                 
         <div class="card-login">
+            <div class="img-login my-3 d-flex justify-content-center">
+                <img src="/img/logo.png" alt="Mega Motos" class="img-fluid" width="200px">
+            </div>
             <form method="POST" action="{{ route('register') }}" class="m-3">
                 @csrf                
                 <div class="mb-3">
-                    <label for="name" class="form-label">{{ __('Name') }}</label>        
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <input id="name" type="text" class="ttr @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Nome Completo">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -19,18 +18,15 @@
                     @enderror        
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">{{ __('Email Address') }}</label>
-                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                     <input id="email" type="email" class="ttr @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
-            
                 <div class="mb-3">
-                    <label for="password" class="form-label">{{ __('Password') }}</label>        
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    <input id="password" type="password" class="ttr @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Senha">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -38,12 +34,11 @@
                     @enderror 
                 </div>
                 <div class="mb-3">
-                    <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>        
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">        
+                    <input id="password-confirm" type="password" class="ttr" name="password_confirmation" required autocomplete="new-password" placeholder="Confirmar Senha">        
                 </div>    
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn">
-                         {{ __('Register') }}
+                         Cadastrar
                     </button>
                 </div>
             </form>

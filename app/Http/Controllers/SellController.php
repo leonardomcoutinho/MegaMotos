@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SellExport;
 use App\Models\CardTariff;
 use App\Models\Fpay;
 use App\Models\Inventory;
 use App\Models\Sell;
-
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SellController extends Controller
 {
@@ -22,6 +24,8 @@ class SellController extends Controller
     public function store(Request $request){
     
         $sell = new Sell;
+        $sell->client = $request->client;
+        $sell->contact = $request->contact; 
         $sell->product_1_id = $request->product_1_id;
         $sell->product_1_qtd = $request->product_1_qtd;
         $sell->product_2_id = $request->product_2_id;
@@ -41,11 +45,13 @@ class SellController extends Controller
         $sell->product_9_id = $request->product_9_id;
         $sell->product_9_qtd = $request->product_9_qtd;
         $sell->fpay_id = $request->fpay_id;
+        $sell->document = $request->document;
         $sell->description_service = $request->description_service;
         $sell->price = str_replace(",", ".", $request->price);
+        $sell->labor = str_replace(",", ".", $request->labor);
         $sell->discount = str_replace(",", ".", $request->discount);
         $sell->tariff = $request->cardTariff;
-        $total= $sell->price - $sell->discount;
+        $total= $sell->price + $sell->labor - $sell->discount;
         if($request->fpay_id == 1){
             $percentual =  $total * ($request->cardTariff / 100); 
             $sell->total = $total - $percentual;
@@ -100,12 +106,23 @@ class SellController extends Controller
         }
         $sell->save();
 
-        return redirect()->route('sell');
+        return redirect()->route('sell')->with('success', 'Venda lançada com sucesso!');
     }
     public function relatory(){
-        $sell = Sell::orderBy('id', 'desc')->paginate(10);        
+        $sell = Sell::orderBy('id', 'desc')->get();        
         $inventory = Inventory::all();
         $tariff = CardTariff::all();
         return view('admin.relatory.relatory',['sell'=>$sell, 'inventory'=>$inventory, 'tariff'=>$tariff]);
+    }
+    public function pdf(){
+        $sell = Sell::all();
+        $inventory = Inventory::all();
+        $product = Product::all();
+        $tariff = CardTariff::all();
+        $pdf = pdf::loadView('admin.sell.sellpdf', compact('tariff', 'sell', 'inventory', 'product'));
+        return $pdf->setPaper('a4')->stream("Resumo de Vendas");
+    }
+    public function excel(){
+        return Excel::download(new SellExport, 'resumovendas.xlsx');
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function products(){
-        $products = Product::all();
+        $products = Product::orderBy('id', 'desc')->get();
         $category = Category::all();
 
         return view('admin.products.products', ['products'=> $products, 'category'=> $category]);
@@ -17,13 +17,13 @@ class ProductController extends Controller
     public function store(Request $request){
         $products = new Product;
 
-        // $request->validate([
-        //     'name'=>'required',            
-        //     'description'=>'required',
-        //     'provider'=>'required',
-        //     'brand'=>'required',
-        //     'category_id'=>'required'            
-        // ]);
+         $request->validate([
+             'name'=>'required',            
+             'description'=>'required',
+             'provider'=>'required',
+             'brand'=>'required',
+             'category_id'=>'required'            
+         ]);
 
         $products->name = $request->name;
         $products->description = $request->description;

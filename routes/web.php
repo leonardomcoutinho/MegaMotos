@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CardTariffController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FpayController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProductController;
@@ -35,8 +37,31 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/sell', [SellController::class, 'sell'])->name('sell');
     Route::post('/sell', [SellController::class, 'store'])->name('store_sell');
+    Route::get('/sell/pdf', [SellController::class, 'pdf'])->name('pdf_sell');
+    Route::get('/sell/excel', [SellController::class, 'excel'])->name('excel_sell');
+
+
+    Route::get('/budget/read', [BudgetController::class, 'read'])->name('read_budget');
+    Route::get('/budget', [BudgetController::class, 'budget'])->name('budget');
+    Route::post('/budget', [BudgetController::class, 'store'])->name('store_budget');
+    Route::get('/budget/pdf/{id}', [BudgetController::class, 'pdf'])->name('pdf_budget');
+    Route::get('/budget/edit/{id}', [BudgetController::class, 'edit'])->name('edit_budget');
+    Route::get('/budget/revert/{id}', [BudgetController::class, 'revert'])->name('revert_budget');
+    Route::post('/budget/revert/{id}', [BudgetController::class, 'revertBudget'])->name('revertbudget');
+    Route::post('/budget/cancel/{id}', [BudgetController::class, 'cancel'])->name('cancel_budget');
+    Route::post('/budget/aproved/{id}', [BudgetController::class, 'aproved'])->name('aproved_budget');
 
     Route::get('/relatory', [SellController::class, 'relatory'])->name('relatory');
+
+    Route::get('/config/category', [CategoryController::class, 'categories'])->name('categories');
+    Route::post('/config/category', [CategoryController::class, 'store'])->name('store_category');
+    Route::post('/config/category/{id}', [CategoryController::class, 'destroy'])->name('destroy_category');
+
+
+    Route::get('/config/fpay', [FpayController::class, 'fpay'])->name('fpay');
+    Route::post('/config/fpay', [FpayController::class, 'store'])->name('store_fpay');
+    Route::post('/config/fpay/{id}', [FpayController::class, 'destroy'])->name('destroy_fpay');
+
 
     Route::get('/config/tariff', [CardTariffController::class, 'tariff'])->name('tariff');
     Route::get('/config/edittariff/{id}', [CardTariffController::class, 'edit'])->name('edit_tariff');

@@ -4,23 +4,24 @@
 <div class="container">
     <div class="login flex-column">
         <div class="img-login mb-3">
-            <img src="/img/logo.png" alt="Mega Motos" class="img-fluid">
+            
         </div>          
         <div class="card-login">
+            <div class="img-login my-3 d-flex justify-content-center">
+                <img src="/img/logo.png" alt="Mega Motos" class="img-fluid" width="200px">
+            </div>  
             <form method="POST" action="{{ route('login') }}" class="m-3">
                 @csrf                
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>                    
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <div class="mb-3">                                        
+                    <input id="email" type="email" class="tt @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Insira seu e-mail">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                              <strong>{{ $message }}</strong>
                         </span>
                     @enderror                    
                 </div>
-                <div class=" mb-3">
-                    <label for="password" class="form-label">Senha:</label>                    
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                <div class=" mb-3">                                        
+                    <input id="password" type="password" class="tt @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Insira sua senha">
                     @error('password')
                          <span class="invalid-feedback" role="alert">
                              <strong>{{ $message }}</strong>

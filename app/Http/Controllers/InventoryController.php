@@ -11,7 +11,7 @@ class InventoryController extends Controller
 {
     public function inventory(){
         $products = Product::all();
-        $inventory = Inventory::all();
+        $inventory = Inventory::orderBy('id','desc')->get();
 
         return view('admin.inventory.inventory', ['inventory'=>$inventory, 'products'=>$products]);
     }

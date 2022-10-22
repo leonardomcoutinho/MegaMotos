@@ -10,6 +10,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/img/icon.png">
     <!-- Bootstrap css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap icons-->
@@ -22,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white ">
+        <nav class="navbar navbar-expand-md navbar-light bg-white nav-p">
             <div class="container"> 
                 <a href="{{route('admin')}}"><img src="/img/logo.png" alt="" width="100px"></a>               
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -68,16 +69,21 @@
             <div class="container-fluid">
                 <div class="dashboard">
                     <div class="aside-dash p-3 text-bg-dark">
-                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                          <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-                          <span class="fs-4">Menu</span>
+                        <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">                          
+                          <span class="fs-4">Dashboard</span>
                         </a>
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
                           <li class="nav-item">
-                            <a href="{{route('sell')}}" class="nav-link active bg-danger" aria-current="page">
+                            <a href="{{route('sell')}}" class="nav-link active bg-danger mb-3" aria-current="page">
                             <i class="bi bi-plus-lg me-2"></i>
                               Lançar Venda/Serviço
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{route('read_budget')}}" class="nav-link text-white" aria-current="page">
+                            <i class="bi bi-card-checklist me-2"></i>
+                              Orçamentos
                             </a>
                           </li>
                           <li>
@@ -91,24 +97,30 @@
                             <i class="bi bi-bank me-2"></i>
                               Estoque
                             </a>
+                          </li> 
+                          <li>
+                            <a href="{{route('relatory')}}" class="nav-link text-white">
+                            <i class="bi bi-card-list me-2"></i>
+                              Relatório V/S
+                            </a>
                           </li>                           
-                          <div class="dropdown">
+                          {{-- <div class="dropdown">
                             <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-card-list me-2"></i>Relatorios
                             </button>
                             <ul class="dropdown-menu">
                               <li><a class="dropdown-item" href="{{route('relatory')}}"><i class="bi bi-cash me-2"></i>Vendas/Serviço</a></li>
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-bag me-2"></i>Produtos</a></li>
+                              <li><a class="dropdown-item" href="#"><i class="bi bi-bag me-2"></i>Orça</a></li>
                               <li><a class="dropdown-item" href="#"><i class="bi bi-bank me-2"></i>Estoque</a></li>
                             </ul>
-                          </div> 
+                          </div>  --}}
                           <div class="dropdown">
                             <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-gear me-2"></i>Configuração
                             </button>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-tag me-2"></i>Categorias</a></li>
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-wallet2 me-2"></i>Forma de Recebimento</a></li>
+                              <li><a class="dropdown-item" href="{{route('categories')}}"><i class="bi bi-tag me-2"></i>Categorias</a></li>
+                              <li><a class="dropdown-item" href="{{route('fpay')}}"><i class="bi bi-wallet2 me-2"></i>Forma de Recebimento</a></li>
                               <li><a class="dropdown-item" href="{{route('tariff')}}"><i class="bi bi-credit-card-2-back me-2"></i>Tarifas Cartão</a></li>
                             </ul>
                           </div>                       
@@ -162,12 +174,15 @@
                                   </div>
                               @endif
                           </div>
+                          
                         @yield('dashboard')
                     </section>
                 </div>
             </div>                         
         </main>
     </div>
-    @yield('scripts')   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    @yield('scripts')
+    
 </body>
 </html>

@@ -24,6 +24,6 @@ class CardTariffController extends Controller
         $tariff->percentual = $request->percentual; 
         $tariff->update();
 
-        return redirect()->route('tariff');
+        return redirect()->route('tariff')->with('success', 'Tarifa atualizada com sucesso!');
     }
 }

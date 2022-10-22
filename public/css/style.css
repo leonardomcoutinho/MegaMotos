@@ -1,26 +1,74 @@
 body{
-    background-image: url(/img/back.png);
-    z-index: 0;
+    background-image: url(/img/teste.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;    
+    z-index: -1;
 }
-#app nav{
+.main{
+    opacity: 0.5;    
+}
+.home{
+    height: 85vh;
+    display: flex;
+    align-items: center;
+}
+.home p{
+    text-align: justify;
+}
+#app .nav-p{
     box-shadow: 0px 4px 10px black;
 }
+thead{
+    white-space: nowrap;
+}
+.td-prices{
+    white-space: nowrap;
+}
+
 /*LOGIN*/
 .login {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 80vh;
 }
 
 .card-login {
-    box-shadow: 0px 10px 20px #6a6769;
+    box-shadow: 4px 4px 15px black;
     border-radius: 7px;
+    padding: 20px 0 ;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .card-login input {
     width: 350px;
+    border-bottom: solid 1px solid;
 }
-
+.tt{
+    border: solid 1px grey;
+    /* border-bottom: solid 1px grey; */
+    margin: 15px 2px;
+    padding: 10px 0px;
+    text-align: center;
+    background-color: unset;
+    border-radius: 20px;
+}
+.tt:focus{
+    outline: 0;
+    border-bottom: solid 1px grey; 
+}
+.ttr{
+    border: none;
+    border-bottom: solid 1px grey;
+    margin: 15px 2px;
+    padding: 10px 0px;
+    background-color: unset;
+}
+.ttr:focus{
+    outline: 0;
+    border-bottom: solid 1px grey;
+}
 .card-login button {
     color: #fff;
     background-color: #ff1616;
@@ -51,20 +99,185 @@ body{
 /*INPUTS SELL*/
 #itens{
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+}
+.ddd .qtd{
+ width: 100px;
 }
 .select-prod{
-    width: 50%;    
+    width: 95%;    
 }
 #itens select{
     width: 100%;
 }
-
-.ddd .qtd{
- width: 80px;
+.cliente{
+    width: 100%;
+}
+.cliente-name{
+    width: 50%;
+}
+.cliente-contact{
+    width: 50%;
+}
+.recebimento{
+    width: 100%;
+    justify-content: space-between;
+}
+.recebimento div{
+    width: 30%;
 }
 .tariff-tt{
-    width: 300px;
+    width: 350px;
+}
+.card-tariff{
+    box-shadow: 2px 2px 5px black;
+}
+#tt input{
+    width: 150px;
 }
 
 
+/* Category */
+
+.list-cat{
+    width: 350px;
+}
+.card-cat{
+    padding: 5px;
+    box-shadow: 2px 2px 5px black;
+}
+/*Grafico*/
+.resumo-mes{
+    width: 600px;
+    
+}
+.total-venda{
+    width: 600px;
+    
+}
+/*PDFs*/
+.area-empresa{
+    position: relative;
+    height: 180px;
+}
+.dados-empresa{
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    margin: 20px 0px;
+}
+.logo-empresa{
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 20px 0px;
+}
+.area-info-orcamento{
+    position: relative;
+    height: 40px;
+    margin: 20px 0px;
+    top: 15px;
+    border: solid 1px black;
+    width: 100%;
+}
+.numero{
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px 0px;
+    width: 50%;
+    text-align: center;    
+}
+.data{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 0px;
+    width: 50%;
+    text-align: center;
+}
+.cliente-bud{
+    position: relative;
+    height: 80px;
+    margin: 20px 0px;
+    top: 15px;
+    border: solid 1px black;
+    width: 100%;
+}
+.cli{
+    text-align: center;
+    padding: 10px 0px;
+    background-color: #dddcdc;
+    border-bottom: solid 1px black;
+}
+
+.table-prod{
+    position: relative;
+    height: 350px;
+    text-align: center;
+}
+.table-prod table, .table-prod td, .table-prod th{
+    border: solid 1px black;
+    padding: 2px 5px;
+}
+.testttt{
+    width: 70%;
+}
+.subtotaltd{
+    text-align: right;
+    background-color: #dddcdc;
+}
+.discount-bud{
+    color: red;
+}
+.obs{
+    position: relative;
+    height: 200px;
+    border: solid 1px black;
+    width: 100%;
+}
+.obs-title{
+    text-align: center;
+    padding: 10px 0px;
+    background-color: #dddcdc;
+    border-bottom: solid 1px black;
+}
+.obs-service{
+    padding: 3px 10px;
+}
+.assinatura{
+    position: relative;
+    height: 40px;
+    top: 100px;
+    width: 100%;
+}
+.ass-emp{
+    position: absolute;
+    left: 0;
+    width: 40%;
+    border-top: solid 2px black;
+    text-align: center;
+}
+.ass-client{
+    position: absolute;
+    right: 0;
+    width: 40%;
+    border-top: solid 2px black;
+    text-align: center;
+}
+/*PDF Sell*/
+.table-pdf{
+    font-size: 10px;
+    margin: 0 auto;
+
+}
+.table-pdf tr{
+    vertical-align: text-top;
+    text-align: center;
+    text-align: start;
+    border: solid 1px black;
+}
+.thead-pdf{
+    border: solid 1px black;
+}

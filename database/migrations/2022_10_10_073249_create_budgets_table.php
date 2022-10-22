@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sells', function (Blueprint $table) {
+        Schema::create('budgets', function (Blueprint $table) {
             $table->increments("id");
-            $table->string('client')->nullable();
-            $table->string('contact')->nullable();
+            $table->string('client');
+            $table->string('contact');
             $table->integer("product_1_id")->unsigned()->nullable();
             $table->integer("product_1_qtd")->unsigned()->nullable();
             $table->integer("product_2_id")->unsigned()->nullable();
@@ -35,11 +35,11 @@ return new class extends Migration
             $table->integer("product_8_qtd")->unsigned()->nullable();
             $table->integer("product_9_id")->unsigned()->nullable();
             $table->integer("product_9_qtd")->unsigned()->nullable();
-            $table->integer("budget_id")->unsigned()->nullable();
-            $table->integer('fpay_id')->unsigned();
+            $table->integer('fpay_id')->unsigned()->nullable();
             $table->string('description_service');
-            $table->decimal('price',10,2);            
-            $table->decimal('labor',10,2);            
+            $table->string('status');
+            $table->decimal('price',10,2);
+            $table->decimal('labor',10,2)->nullable();            
             $table->decimal('discount',10,2)->nullable();
             $table->decimal('tariff',10,2)->nullable();
             $table->decimal('total',10,2)->nullable();
@@ -56,7 +56,6 @@ return new class extends Migration
             $table->foreign('product_7_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_8_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_9_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('budget_id')->references('id')->on('budgets')->onDelete('cascade');
             $table->foreign('fpay_id')->references('id')->on('fpays')->onDelete('cascade');
         });
     }
@@ -68,6 +67,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sells');
+        Schema::dropIfExists('budgets');
     }
 };

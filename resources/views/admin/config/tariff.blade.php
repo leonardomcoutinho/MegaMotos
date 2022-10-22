@@ -7,7 +7,7 @@
     <div class="mx-3"> 
             <div class="tariff-tt">
                 @foreach ($tariff as $t)
-                    <div class="input-group input-group-sm mb-3">
+                    <div class="card-tariff rounded input-group input-group-sm mb-3">
                         <span class="input-group-text" id="basic-addon3">{{$t->name}}</span>
                         <input type="text" class="form-control" id="basic-url" name="percentual" value="{{$t->percentual}}">
                         <a href="{{route('edit_tariff', $t->id)}}" class="btn btn-danger"><i class="bi bi-pencil"></i></a>
