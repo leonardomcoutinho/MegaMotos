@@ -29,6 +29,18 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="">
+                    @if (session('error'))
+                          <div class="notification-alert">
+                              <div class="alert alert-danger text-center">{{ session('error')}}</div>
+                          </div>
+                      @endif
+                      @if (session('success'))
+                          <div class="notification-alert">
+                              <div class="alert alert-success text-center">{{ session('success')}}</div>
+                          </div>
+                      @endif
+                </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
@@ -98,22 +110,23 @@
                               Estoque
                             </a>
                           </li> 
-                          <li>
+                          {{-- <li>
                             <a href="{{route('relatory')}}" class="nav-link text-white">
                             <i class="bi bi-card-list me-2"></i>
                               Relatório V/S
                             </a>
-                          </li>                           
-                          {{-- <div class="dropdown">
+                          </li>                            --}}
+                          <div class="dropdown">
                             <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-card-list me-2"></i>Relatorios
                             </button>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{{route('relatory')}}"><i class="bi bi-cash me-2"></i>Vendas/Serviço</a></li>
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-bag me-2"></i>Orça</a></li>
-                              <li><a class="dropdown-item" href="#"><i class="bi bi-bank me-2"></i>Estoque</a></li>
+                              <li><a class="dropdown-item" href="{{route('totalsell')}}"><i class="bi bi-cash me-2"></i>Total Vendas/Serviço</a></li>
+                              <li><a class="dropdown-item" href="{{route('finalizadassell')}}"><i class="bi bi-card-checklist me-2"></i>Vendas Finalizadas</a></li>
+                              <li><a class="dropdown-item" href="{{route('pendentessell')}}"><i class="bi bi-card-list me-2"></i>Vendas Pendentes</a></li>
+                              <li><a class="dropdown-item" href="{{route('recebidosell')}}"><i class="bi bi-list-check me-2"></i>Total Recebido</a></li>
                             </ul>
-                          </div>  --}}
+                          </div>
                           <div class="dropdown">
                             <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-gear me-2"></i>Configuração
@@ -162,19 +175,6 @@
                         </div>
                     </div>                    
                     <section class="section-dash">
-                        <div class="row">
-                            @if (session('error'))
-                                  <div class="col-12">
-                                      <div class="alert alert-danger text-center">{{ session('error')}}</div>
-                                  </div>
-                              @endif
-                              @if (session('success'))
-                                  <div class="col-12">
-                                      <div class="alert alert-success text-center">{{ session('success')}}</div>
-                                  </div>
-                              @endif
-                          </div>
-                          
                         @yield('dashboard')
                     </section>
                 </div>
@@ -183,6 +183,16 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     @yield('scripts')
-    
+    <script>
+        
+     $(document).ready(function(){
+        setTimeout(function(){
+            $('.notification-alert').fadeOut('fast', function(){
+                $(this).alert('close');
+            });
+        },5000)
+     })
+        
+    </script>
 </body>
 </html>

@@ -13,82 +13,107 @@
         <div class="">
         <form action="{{route('store_sell')}}" method="POST" class="m-3">
             @csrf
-            <div class="cliente d-flex gap-5">
-                <div class="mb-3 cliente-name">
-                    <label for="client" class="form-label">Cliente:</label>
-                    <input type="text" class="form-control" id="client" name="client" placeholder="Nome Completo">                    
+            <div class="">
+                <div class="cliente d-flex gap-5">
+                    <div class="mb-3 cliente-name">
+                        <label for="client" class="form-label">Cliente:</label>
+                        <input type="text" class="form-control" id="client" name="client" placeholder="Nome Completo">                    
+                    </div>
+                    <div class="mb-3 cliente-contact">
+                        <label for="contact" class="form-label">Contato:</label>
+                        <input type="text" class="form-control" id="contact" name="contact" placeholder="Telefone para Contato">                    
+                    </div>
                 </div>
-                <div class="mb-3 cliente-contact">
-                    <label for="contact" class="form-label">Contato:</label>
-                    <input type="text" class="form-control" id="contact" name="contact" placeholder="Telefone para Contato">                    
+                <div class="mb-3 d-flex w-100 gap-5 align-items-end recebimento">
+                    <div class="fpag">
+                        <label for="fpay_id" class="form-label">Selecione a Forma do Recebimento</label>
+                        <select class="form-select" name="fpay_id" id="fpay_id" aria-label="Default select example" required>
+                            <option selected disabled>Forma de Recebimento</option>
+                            @foreach ($fpay as $item)
+                                <option value="{{$item->id}}">{{$item->fpay}}</option>
+                            @endforeach
+                        </select> 
+                    </div>
+                    <div class="form-check form-switch checkbox">
+                        <input class="form-check-input" type="checkbox" role="switch" name="aprazo" id="aprazo" value="1" class="">
+                        <label class="form-check-label" for="aprazo">Venda a prazo</label>
+                    </div>
+                    <div class="form-check form-switch checkbox2">
+                        <input class="form-check-input" type="checkbox" role="switch" name="aprazo" id="pentrada" value="1" class="">
+                        <label class="form-check-label" for="pentrada">Venda com entrada</label>
+                    </div>
+                    <div class="parcel ms-3">
+                        <label for="cardTariff" class="form-label">Selecione o Método</label>
+                        <select class="form-select" name="cardTariff" id="cardTariff" aria-label="Default select example">  
+                                <option selected disabled> Selecione...</option>                  
+                            @foreach ($cardTariff as $item)
+                                <option value="{{$item->percentual}}">{{$item->name}}</option>
+                            @endforeach
+                        </select> 
+                    </div> 
+                    <div class="ms-3 document">
+                        <label for="document" class="form-label">Nº do Documento</label>                 
+                        <input type="text" class="form-control " name="document" id="document" placeholder="Nº Comprovante">                    
+                    </div> 
+                    <div class="entrada-pay p-0 m-0 ">
+                        <label for="recebido" class="form-label p-0 m-0">Valor Entrada R$:
+                        <input type="text" class="form-control" name="recebido" id="recebido" value="0"> 
+                    </label>
+                    </div>
+                    <div class="date-pay">
+                        <label for="date_pay" class="form-label">Data prevista para pagamento</label>
+                        <input type="date" name="date_pay" id="date_pay" class="form-control">
+                    </div>
+                                
+                </div>
+                
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <textarea class="form-control" name="description_service" placeholder="Leave a comment here" id="description_service" style="height: 100px"></textarea>
+                        <label for="description_service">Descrição do Serviço</label>
+                    </div>
                 </div>
             </div>
-            <div class="mb-3 d-flex w-100 align-items-center gap-5 recebimento">
-                <div class="fpag">
-                    <label for="fpay_id" class="form-label">Selecione a Forma do Recebimento</label>
-                    <select class="form-select" name="fpay_id" id="fpay_id" aria-label="Default select example">
-                        <option selected disabled>Forma de Recebimento</option>
-                        @foreach ($fpay as $item)
-                            <option value="{{$item->id}}">{{$item->fpay}}</option>
-                        @endforeach
-                    </select> 
+            <div class="">
+                <div class="d-flex align-items-center gap-3">
+                    <h6>Material Utilizado</h6>
+                    <button type="button" class="btn btn-danger" id="add"> + </button>
+               </div>                       
+               <div id="itens" class="w-100 mb-3">
+                   <div class="form-group my-3 d-flex w-100 ddd">
+                       <div class="select-prod d-flex flex-nowrap">                        
+                           <select class="form-select" name="product_1_id" id="material" aria-label="Default select example"> 
+                                   <option selected disabled>Selecione o material</option>                           
+                               @foreach ($inventory as $item)
+                                   <option value="{{$item->id}}">{{$item->product->name}} - {{$item->product->description}}</option>
+                               @endforeach                        
+                           </select>
+                           <input type="number" placeholder="Qtd" class="form-control ms-3 qtd" name="product_1_qtd" id="qtd1">
+                           <input type="text" placeholder="R$ Unit" class="form-control ms-3 qtd" name="product_1_value" id="valor1">                        
+                       </div>                   
+                   </div>
+               </div>
+            </div>
+            <div class="">
+                <div class="mb-3 d-flex mb-3" id="tt">
+                    <div class="me-3">
+                        <label for="price" class="form-label">Valor R$:
+                        <input type="text" class="form-control" name="price" id="price"> 
+                        </label>
+                    </div>
+                    <div class="me-3">
+                        <label for="price" class="form-label">Mão de Obra R$:
+                        <input type="text" class="form-control" name="labor" id="price" value="0"> 
+                        </label>
+                    </div> 
+                    <div class="me-3">
+                        <label for="discount" class="form-label">Desconto R$:
+                        <input type="text" class="form-control input_fields_wrap" name="discount" id="discount" value="0">
+                        </label>
+                    </div>                
                 </div>
-                <div class="parcel ms-3">
-                    <label for="cardTariff" class="form-label">Selecione o Método</label>
-                    <select class="form-select" name="cardTariff" id="cardTariff" aria-label="Default select example">  
-                            <option selected disabled> Selecione...</option>                  
-                        @foreach ($cardTariff as $item)
-                            <option value="{{$item->percentual}}">{{$item->name}}</option>
-                        @endforeach
-                    </select> 
-                </div> 
-                <div class="ms-3 document">
-                    <label for="document" class="form-label">Nº do Documento</label>                 
-                    <input type="text" class="form-control " name="document" id="document" placeholder="Nº Comprovante">                    
-                </div>             
             </div>
             
-            <div class="mb-3">
-                <div class="form-floating">
-                    <textarea class="form-control" name="description_service" placeholder="Leave a comment here" id="description_service" style="height: 100px"></textarea>
-                    <label for="description_service">Descrição do Serviço</label>
-                </div>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                 <h6>Material Utilizado</h6>
-                 <button type="button" class="btn btn-danger" id="add"> + </button>
-            </div>                       
-            <div id="itens" class="w-100 mb-3">
-                <div class="form-group my-3 d-flex w-100 ddd">
-                    <div class="select-prod d-flex flex-nowrap">                        
-                        <select class="form-select" name="product_1_id" id="material" aria-label="Default select example"> 
-                                <option selected disabled>Selecione o material</option>                           
-                            @foreach ($inventory as $item)
-                                <option value="{{$item->id}}">{{$item->product->name}} - {{$item->product->description}}</option>
-                            @endforeach                        
-                        </select>
-                        <input type="number" placeholder="Qtd" class="form-control ms-3 qtd" name="product_1_qtd" id="qtd1">
-                        <input type="text" placeholder="R$ Unit" class="form-control ms-3 qtd" name="product_1_value" id="valor1">                        
-                    </div>                   
-                </div>
-            </div>
-            <div class="mb-3 d-flex mb-3" id="tt">
-                <div class="me-3">
-                    <label for="price" class="form-label">Valor R$:
-                    <input type="text" class="form-control" name="price" id="price"> 
-                    </label>
-                </div>
-                <div class="me-3">
-                    <label for="price" class="form-label">Mão de Obra R$:
-                    <input type="text" class="form-control" name="labor" id="price" value="0"> 
-                    </label>
-                </div> 
-                <div class="me-3">
-                    <label for="discount" class="form-label">Desconto R$:
-                    <input type="text" class="form-control input_fields_wrap" name="discount" id="discount" value="0">
-                    </label>
-                </div>                
-            </div>
             <button type="submit" class="btn btn-danger">Enviar</button>
         </form>
     </div>    
@@ -97,7 +122,23 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+    // Oculta recebimento caso venda aprazo esteja selecionado
+$(document).ready(function(){
+    $(".date-pay").hide()
+    $(".entrada-pay").hide()
+    $( "#aprazo" ).click(function() {
+        $(".fpag").toggle();
+                
+        $(".date-pay").toggle();
+    });
+    $( "#pentrada" ).click(function() {
+        $(".date-pay").toggle();
+        $(".entrada-pay").toggle();
+    });
+}) 
+ 
  $(document).ready(function() {
+    
   var max_fields = 10; //maximum input boxes allowed
   var wrapper = $("#itens"); //Fields wrapper
   var add_button = $("#add"); //Add button ID
@@ -140,6 +181,7 @@
     });
 
     $('#itens').change( function(){
+        
         var valor1 = $('#valor1').val()  
         var valor2 = $('#valor2').val()    
         var valor3 = $('#valor3').val()        

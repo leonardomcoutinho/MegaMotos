@@ -26,6 +26,7 @@ Auth::routes();
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin', [HomeController::class, 'index'])->name('admin');
+
     Route::get('/admin/products', [ProductController::class, 'products'])->name('products');
     Route::post('/admin/products', [ProductController::class, 'store'])->name('store_products');
 
@@ -39,6 +40,12 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/sell', [SellController::class, 'store'])->name('store_sell');
     Route::get('/sell/pdf', [SellController::class, 'pdf'])->name('pdf_sell');
     Route::get('/sell/excel', [SellController::class, 'excel'])->name('excel_sell');
+    Route::get('/sell/edit/{id}', [SellController::class, 'edit'])->name('edit_sell');
+    Route::post('/sell/edit/{id}', [SellController::class, 'updatestatus'])->name('updatestatus_sell');
+    Route::get('/sell/reag/{id}', [SellController::class, 'reag'])->name('reag_sell');
+    Route::post('/sell/reag/{id}', [SellController::class, 'updatereag'])->name('updatereag_sell');
+    Route::get('/sell/parc/{id}', [SellController::class, 'parcial'])->name('parcial_sell');
+    Route::post('/sell/parc/{id}', [SellController::class, 'updateparcial'])->name('updateparcial_sell');
 
 
     Route::get('/budget/read', [BudgetController::class, 'read'])->name('read_budget');
@@ -51,7 +58,10 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/budget/cancel/{id}', [BudgetController::class, 'cancel'])->name('cancel_budget');
     Route::post('/budget/aproved/{id}', [BudgetController::class, 'aproved'])->name('aproved_budget');
 
-    Route::get('/relatory', [SellController::class, 'relatory'])->name('relatory');
+    Route::get('/relatory/totalsell', [SellController::class, 'totalsell'])->name('totalsell');
+    Route::get('/relatory/finalizadassell', [SellController::class, 'finalizadassell'])->name('finalizadassell');
+    Route::get('/relatory/pendentessell', [SellController::class, 'pendentessell'])->name('pendentessell');
+    Route::get('/relatory/recebidosell', [SellController::class, 'recebidosell'])->name('recebidosell');
 
     Route::get('/config/category', [CategoryController::class, 'categories'])->name('categories');
     Route::post('/config/category', [CategoryController::class, 'store'])->name('store_category');

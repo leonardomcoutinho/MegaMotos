@@ -13,54 +13,60 @@
         <div class="">
         <form action="{{route('store_budget')}}" method="POST" class="m-3">
             @csrf
-            <div class="cliente d-flex gap-5">
-                <div class="mb-3 cliente-name">
-                    <label for="client" class="form-label">Cliente:</label>
-                    <input type="text" class="form-control" id="client" name="client" placeholder="Nome Completo">                    
+            <div class="">
+                <div class="cliente d-flex gap-5">
+                    <div class="mb-3 cliente-name">
+                        <label for="client" class="form-label">Cliente:</label>
+                        <input type="text" class="form-control" id="client" name="client" placeholder="Nome Completo">                    
+                    </div>
+                    <div class="mb-3 cliente-contact">
+                        <label for="contact" class="form-label">Contato:</label>
+                        <input type="text" class="form-control" id="contact" name="contact" placeholder="Telefone para Contato">                    
+                    </div>
                 </div>
-                <div class="mb-3 cliente-contact">
-                    <label for="contact" class="form-label">Contato:</label>
-                    <input type="text" class="form-control" id="contact" name="contact" placeholder="Telefone para Contato">                    
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="form-floating">
-                    <textarea class="form-control" name="description_service" placeholder="Leave a comment here" id="description_service" style="height: 100px"></textarea>
-                    <label for="description_service">Descrição do Serviço</label>
-                </div>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                 <h6>Material</h6>
-                 <button type="button" class="btn btn-danger" id="add"> + </button>
-            </div>                       
-            <div id="itens" class="w-100 mb-3">
-                <div class="form-group my-3 d-flex w-100 ddd">
-                    <div class="select-prod d-flex flex-nowrap">                        
-                        <select class="form-select" name="product_1_id" id="material" aria-label="Default select example"> 
-                                <option selected disabled>Selecione o material</option>                           
-                            @foreach ($inventory as $item)
-                                <option value="{{$item->id}}">{{$item->product->name}} - {{$item->product->description}}</option>
-                            @endforeach                        
-                        </select>
-                        <input type="number" placeholder="Qtd" class="form-control ms-3 qtd" name="product_1_qtd" id="qtd1">
-                        <input type="text" placeholder="R$" class="form-control ms-3 qtd" name="product_1_value" id="valor1">
-                    </div>                   
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <textarea class="form-control" name="description_service" placeholder="Leave a comment here" id="description_service" style="height: 100px"></textarea>
+                        <label for="description_service">Descrição do Serviço</label>
+                    </div>
                 </div>
             </div>
-            <div class="mb-3 d-flex mb-3" id="tt">
-                <div class="me-3 prices">
-                    <label for="price" class="form-label">Valor R$:<input type="text" class="form-control" name="price" id="price"></label>
-                </div> 
-                <div class="me-3">
-                    <label for="price" class="form-label">Mão de Obra R$:
-                    <input type="text" class="form-control" name="labor" id="price" value="0"> 
-                    </label>
+            <div class="">
+                <div class="d-flex align-items-center gap-3">
+                    <h6>Material</h6>
+                    <button type="button" class="btn btn-danger" id="add"> + </button>
+               </div>                       
+               <div id="itens" class="w-100 mb-3">
+                   <div class="form-group my-3 d-flex w-100 ddd">
+                       <div class="select-prod d-flex flex-nowrap">                        
+                           <select class="form-select" name="product_1_id" id="material" aria-label="Default select example"> 
+                                   <option selected disabled>Selecione o material</option>                           
+                               @foreach ($inventory as $item)
+                                   <option value="{{$item->id}}">{{$item->product->name}} - {{$item->product->description}}</option>
+                               @endforeach                        
+                           </select>
+                           <input type="number" placeholder="Qtd" class="form-control ms-3 qtd" name="product_1_qtd" id="qtd1">
+                           <input type="text" placeholder="R$" class="form-control ms-3 qtd" name="product_1_value" id="valor1">
+                       </div>                   
+                   </div>
+               </div>
+            </div>
+            <div class="">
+                <div class="mb-3 d-flex mb-3" id="tt">
+                    <div class="me-3 prices">
+                        <label for="price" class="form-label">Valor R$:<input type="text" class="form-control" name="price" id="price"></label>
+                    </div> 
+                    <div class="me-3">
+                        <label for="price" class="form-label">Mão de Obra R$:
+                        <input type="text" class="form-control" name="labor" id="price" value="0"> 
+                        </label>
+                    </div>
+                    <div class="me-3">
+                        <label for="discount" class="form-label">Desconto R$:
+                        <input type="text" class="form-control input_fields_wrap" name="discount" id="discount" value="0">
+                        </label>
+                    </div>                
                 </div>
-                <div class="me-3">
-                    <label for="discount" class="form-label">Desconto R$:
-                    <input type="text" class="form-control input_fields_wrap" name="discount" id="discount" value="0">
-                    </label>
-                </div>                
             </div>
             <button type="submit" class="btn btn-danger">Enviar</button>
         </form>

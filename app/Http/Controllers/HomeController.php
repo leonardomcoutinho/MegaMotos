@@ -41,8 +41,9 @@ class HomeController extends Controller
 
         $sell = Sell::all();
         $budget = Budget::all();
+        $datepay = Sell::whereDate('date_pay', today()->format('Y-m-d'))->get();
         
         
-        return view('admin.admin', compact('budget', 'sell', 'selljan', 'sellfev', 'sellmar', 'sellabr', 'sellmai', 'selljun', 'selljul', 'sellago', 'sellset', 'sellout', 'sellnov', 'selldez'));
+        return view('admin.admin', compact('datepay','budget', 'sell', 'selljan', 'sellfev', 'sellmar', 'sellabr', 'sellmai', 'selljun', 'selljul', 'sellago', 'sellset', 'sellout', 'sellnov', 'selldez'));
     }    
 }

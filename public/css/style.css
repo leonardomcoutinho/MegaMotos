@@ -25,7 +25,20 @@ thead{
 .td-prices{
     white-space: nowrap;
 }
-
+label{
+    font-weight: 600;
+}
+input{
+    font-style: italic;
+}
+select{
+    font-style: italic;
+}
+.notification-alert{
+    position: absolute;
+    top: 70;
+    left: 50%;
+}
 /*LOGIN*/
 .login {
     display: flex;
@@ -81,7 +94,7 @@ thead{
     display: flex;
     box-shadow: 4px 4px 10px black;    
     border-radius: 7px;
-    background-color: #fff;  
+    background-color: rgba(255, 255, 255, 0.8);  
 }
 
 .aside-dash {
@@ -122,9 +135,21 @@ thead{
 .recebimento{
     width: 100%;
     justify-content: space-between;
+    position: relative;
+    padding-top: 40px;
+}
+.checkbox{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.checkbox2{
+    position: absolute;
+    top: 0;
+    left: 200px;
 }
 .recebimento div{
-    width: 30%;
+    width: 300px;
 }
 .tariff-tt{
     width: 350px;
@@ -134,6 +159,9 @@ thead{
 }
 #tt input{
     width: 150px;
+}
+.date-pay{
+    width: 30%;
 }
 
 
@@ -147,14 +175,67 @@ thead{
     box-shadow: 2px 2px 5px black;
 }
 /*Grafico*/
+.graf{
+    position: relative;
+    width: 80vw;
+    height: 80vh;
+    margin: 0 auto;
+    top: -40px;
+}
 .resumo-mes{
+    position: absolute;
+    top: 0;
+    left: 25%;
+    border-radius: 5px;
+    box-shadow: 4px 4px 7px rgb(160, 159, 159);
+}
+.resumo-mes canvas{
     width: 600px;
-    
 }
 .total-venda{
-    width: 600px;
-    
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    border-radius: 5px;
+    box-shadow: 4px 4px 7px rgb(160, 159, 159);
 }
+.total-venda canvas{
+    width: 600px;
+}
+.total-venda-x-orcamento{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 5px;
+    box-shadow: 4px 4px 7px rgb(160, 159, 159);
+}
+.total-venda-x-orcamento canvas{
+    width: 300px;
+}
+.valores{
+    width: 600px;
+    height: 300px;
+    justify-content: center;
+    position: relative;
+    margin-top: 50px;
+}
+.total-recebido{
+    position: absolute;
+    top: 20%;
+    left: 0;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 4px 4px 7px rgb(160, 159, 159);
+}
+.total-areceber{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 4px 4px 7px rgb(160, 159, 159);
+}
+
 /*PDFs*/
 .area-empresa{
     position: relative;
@@ -268,16 +349,18 @@ thead{
 }
 /*PDF Sell*/
 .table-pdf{
-    font-size: 10px;
-    margin: 0 auto;
-
+    font-size: 7px;
 }
 .table-pdf tr{
     vertical-align: text-top;
     text-align: center;
     text-align: start;
-    border: solid 1px black;
 }
-.thead-pdf{
-    border: solid 1px black;
+.table-pdf td{
+    padding: 0px 3px;
+}
+/*CARD INVENTORY*/
+
+.prod-and-desc{
+    width: 80%;
 }

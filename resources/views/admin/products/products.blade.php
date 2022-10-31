@@ -7,32 +7,31 @@
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Cadastrar Produto</button> 
   </div>
   <div class="title mt-3">
-    <h3 class="text-center">Lista de produtos</h3> 
+    <h3 class="text-center">Lista de Produtos</h3> 
   </div>
-  <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Cod.</th>
-          <th scope="col">Nome do Produto</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Fornecedor</th>
-          <th scope="col">Marca</th>
-          <th scope="col">Categoria</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($products as $product)
-        <tr>
-            <td>{{$product->id}}</th>
-            <td>{{$product->name}}</th>
-            <td>{{$product->description}}</th>
-            <td>{{$product->provider}}</th>
-            <td>{{$product->brand}}</th>            
-            <td>{{$product->category->category}}</th>            
-        </tr>  
-        @endforeach      
-      </tbody>
-  </table>
+  @foreach ($products as $product)
+        <div class="card card-invent card-cat my-2" >
+            <div class="card-section d-flex align-items-center ">
+              <div class="cod px-2 text-center">{{$product->id}}</div>
+              <div class="prod-and-desc px-2">
+                <h6 class="prod">{{$product->name}}</h6>
+                <div class="desc">{{$product->description}}</div>
+              </div>
+              <div class="unit-med text-center mx-2 px-2">
+                <div><strong>Fornecedor</strong></div>
+                <div>{{$product->provider}}</div>
+              </div>
+              <div class="qtd-prod text-center mx-2 px-2">
+                <div><strong>Marca</strong></div>
+                <div>{{$product->brand}}</div>
+              </div>
+              <div class="price-med text-center px-2">
+                <div class="td-prices"><strong>Categoria</strong></div>
+                <div class="td-prices">{{$product->category->category}}</div>
+              </div>
+            </div>
+      </div>
+      @endforeach 
 </div>
 
 <!-- Modal -->

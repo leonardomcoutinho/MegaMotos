@@ -44,14 +44,14 @@
                         @if (!empty($budget->product_2_qtd))
                             {{$budget->product_2_qtd}}<br>
                         @endif
-                        @if (!empty($budgetbudget->product_3_qtd))
-                            {{$budgetbudget->product_3_qtd}}<br>
+                        @if (!empty($budget->product_3_qtd))
+                            {{$budget->product_3_qtd}}<br>
                         @endif
-                        @if (!empty($budgetbudget->product_4_qtd))
-                            {{$budgetbudget->product_4_qtd}}<br>
+                        @if (!empty($budget->product_4_qtd))
+                            {{$budget->product_4_qtd}}<br>
                         @endif
-                        @if (!empty($budgetbudget->product_5_qtd))
-                            {{$budgetbudget->product_5_qtd}}<br>
+                        @if (!empty($budget->product_5_qtd))
+                            {{$budget->product_5_qtd}}<br>
                         @endif
                         @if (!empty($budget->product_6_qtd))
                             {{$budget->product_6_qtd}}<br>
@@ -89,15 +89,23 @@
 
           <form action="{{route('aproved_budget', $budget->id)}}" method="POST">
             @csrf
-            <div class="mb-3 d-flex w-100 align-items-center gap-5">
+            <div class="mb-3 d-flex w-100 gap-5 align-items-end recebimento">
                 <div class="fpag">
                     <label for="fpay_id" class="form-label">Selecione a Forma do Recebimento</label>
-                    <select class="form-select" name="fpay_id" id="fpay_id" aria-label="Default select example">
+                    <select class="form-select" name="fpay_id" id="fpay_id" aria-label="Default select example" required>
                         <option selected disabled>Forma de Recebimento</option>
                         @foreach ($fpay as $item)
                             <option value="{{$item->id}}">{{$item->fpay}}</option>
                         @endforeach
                     </select> 
+                </div>
+                <div class="form-check form-switch checkbox">
+                    <input class="form-check-input" type="checkbox" role="switch" name="aprazo" id="aprazo" value="1" class="">
+                    <label class="form-check-label" for="aprazo">Venda a prazo</label>
+                </div>
+                <div class="form-check form-switch checkbox2">
+                    <input class="form-check-input" type="checkbox" role="switch" name="aprazo" id="pentrada" value="1" class="">
+                    <label class="form-check-label" for="pentrada">Venda com entrada</label>
                 </div>
                 <div class="parcel ms-3">
                     <label for="cardTariff" class="form-label">Selecione o Método</label>
@@ -111,7 +119,17 @@
                 <div class="ms-3 document">
                     <label for="document" class="form-label">Nº do Documento</label>                 
                     <input type="text" class="form-control " name="document" id="document" placeholder="Nº Comprovante">                    
-                </div>             
+                </div> 
+                <div class="entrada-pay p-0 m-0 ">
+                    <label for="recebido" class="form-label p-0 m-0">Valor Entrada R$:
+                    <input type="text" class="form-control" name="recebido" id="recebido" value="0"> 
+                </label>
+                </div>
+                <div class="date-pay">
+                    <label for="date_pay" class="form-label">Data prevista para pagamento</label>
+                    <input type="date" name="date_pay" id="date_pay" class="form-control">
+                </div>
+                            
             </div>
             <button type="submit" class="btn btn-success"><i class="bi bi-check-lg"></i> Aprovar Orçamento</button>
           </form>
@@ -120,6 +138,20 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+// Oculta recebimento caso venda aprazo esteja selecionado
+$(document).ready(function(){
+    $(".date-pay").hide()
+    $(".entrada-pay").hide()
+    $( "#aprazo" ).click(function() {
+        $(".fpag").toggle();
+                
+        $(".date-pay").toggle();
+    });
+    $( "#pentrada" ).click(function() {
+        $(".date-pay").toggle();
+        $(".entrada-pay").toggle();
+    });
+}) 
  // Ocultando e exibindo de acordo com o valor do select
   $(document).ready(function() {
         $('.parcel').hide();

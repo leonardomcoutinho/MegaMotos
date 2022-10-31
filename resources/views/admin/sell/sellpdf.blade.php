@@ -37,12 +37,17 @@
             <th scope="col">M. Obra</th>
             <th scope="col">Desc</th>
             <th scope="col">Tax.</th>
+            <th scope="col">Status</th>
             <th scope="col">Total</th>
+            <th scope="col">Recebido</th>
+            <th scope="col">A receber</th>
           </tr>
         </thead>
         <tbody >
             @php
-                $total = 0
+                $total = 0;
+                $totalrecebido = 0;
+                $totalareceber = 0;
             @endphp
             @foreach ($sell as $item)
             <tr >
@@ -87,16 +92,19 @@
                         {{$item->product_9_qtd}}<br>
                     @endif                        
                 </td>
-                <td>{{$item->fpay->fpay}}</td>
+                <td>@if (empty($item->fpay->fpay))
+                    A prazo
+                @else
+                {{$item->fpay->fpay}}
+                @endif</td>
                 <td>
-                    @if ($item->fpay->fpay == 'Cartão')
-                        @foreach ($tariff as $t)
-                            @if ($item->tariff == $t->percentual)
-                                {{$t->name}}
-                            @endif
-                        @endforeach
-                    @endif
-                    
+                    @if (!empty($item->fpay->fpay) && $item->fpay->fpay == 'Cartão')
+                            @foreach ($tariff as $t)
+                                @if ($item->tariff == $t->percentual)
+                                    {{$t->name}}
+                                @endif
+                            @endforeach
+                        @endif
                 </td>
                 <td>{{$item->document}}</td>
                 <td class="td-prices">R$ {{$item->price}}</td>
@@ -122,10 +130,15 @@
                     @endif
                     
                 </td>
+                <th scope="row" class="td-prices">{{$item->status}}</th>
                 <th scope="row" class="td-prices">R$ {{$item->total}}</th>
+                <th scope="row" class="td-prices">R$ {{$item->recebido}}</th>
+                <th scope="row" class="td-prices">R$ {{$item->areceber}}</th>
             </tr>
             @php
-                $total += $item->total
+                $total += $item->total;
+                $totalrecebido += $item->recebido;
+                $totalareceber += $item->areceber;
             @endphp
             @endforeach
                 
@@ -133,8 +146,10 @@
         </tbody>
         <tfoot>
             <tr>
-                <th colspan="14" class="text-end">Total</th>
-                <th class="td-prices">R$: {{$total}}</th>
+                <th colspan="15" class="text-end">Total</th>
+                <th  class="td-prices">R$: {{$total}}</th>
+                <th  class="td-prices">R$: {{$totalrecebido}}</th>
+                <th  class="td-prices">R$: {{$totalareceber}}</th>
             </tr>
         </tfoot>
       </table> 

@@ -6,13 +6,15 @@
 
 @section('dashboard')
     <div class="">
-        <h3 class="text-center my-3">Vendas</h3>
-        <div class="m-3 text-end">
-            Expotar: 
-            <a href="{{route('pdf_sell')}}" target="_blank" class="btn btn-danger"><i class="bi bi-filetype-pdf"></i> PDF</a>
-            <a href="{{route('excel_sell')}}" class="btn btn-success"><i class="bi bi-file-earmark-spreadsheet-fill"></i> EXCEL</a>
+        <h3 class="text-center my-3">Total de vendas</h3>
+        <div class="m-3 d-flex algin-items-center justify-content-between">
+            <div>{{$sell->links()}}</div>
+            <div>
+                <a href="{{route('pdf_sell')}}" target="_blank" class="btn btn-danger"><i class="bi bi-filetype-pdf"></i> PDF</a>
+                <a href="{{route('excel_sell')}}" class="btn btn-success"><i class="bi bi-file-earmark-spreadsheet-fill"></i> EXCEL</a>
+            </div>
         </div>
-        <table class="table table-striped">
+        <table class="table">
             <thead>
               <tr>
                 <th scope="col">Nº</th>                
@@ -24,22 +26,21 @@
                 <th scope="col">Qtd</th>
                 <th scope="col">F. Pag</th>
                 <th scope="col">M. Pag</th>
-                <th scope="col">Doc</th>
                 <th scope="col">Valor Prod</th>
                 <th scope="col">M. Obra</th>
                 <th scope="col">Desc</th>
-                <th scope="col">Tax.</th>
+                <th scope="col">Taxa</th>
+                <th scope="col">Status</th>
                 <th scope="col">Total</th>
+                <th scope="col">Recebido</th>
+                <th scope="col">A receber</th>
               </tr>
             </thead>
             <tbody>
-                @php
-                    $total = 0
-                @endphp
                 @foreach ($sell as $item)
                 <tr>
                     <td>{{$item->id}}</td>
-                    <td>{{$item->created_at}}</td>
+                    <td>{{date('d/m/Y H:m', strtotime($item->created_at))}}</td>
                     <td>{{$item->client}}</td>
                     <td>{{$item->contact}}</td>
                     <td>{{$item->description_service}}</td>
@@ -79,18 +80,22 @@
                             {{$item->product_9_qtd}}<br>
                         @endif                        
                     </td>
-                    <td>{{$item->fpay->fpay}}</td>
                     <td>
-                        @if ($item->fpay->fpay == 'Cartão')
+                        @if (empty($item->fpay->fpay))
+                            A prazo
+                        @else
+                        {{$item->fpay->fpay}}
+                        @endif
+                    </td>
+                    <td>                        
+                        @if (!empty($item->fpay->fpay) && $item->fpay->fpay == 'Cartão')
                             @foreach ($tariff as $t)
                                 @if ($item->tariff == $t->percentual)
                                     {{$t->name}}
                                 @endif
                             @endforeach
                         @endif
-                        
                     </td>
-                    <td>{{$item->document}}</td>
                     <td class="td-prices">R$ {{$item->price}}</td>
                     <td class="td-prices">
                         @if ($item->labor == 0)
@@ -112,23 +117,20 @@
                         @else
                         {{$item->tariff}}%
                         @endif
-                        
                     </td>
-                    <th scope="row" class="td-prices">R$ {{$item->total}}</th>
-                </tr>
-                @php
-                    $total += $item->total
-                @endphp
+                    <td class="td-prices
+                    @if($item->status == "Finalizado")
+                        text-success
+                    @else
+                        text-warning
+                    @endif
+                    ">{{$item->status}}</td>
+                    <td scope="row" class="td-prices">R$ {{$item->total}}</td>
+                    <td scope="row" class="td-prices">R$ {{$item->recebido}}</td>
+                    <td scope="row" class="td-prices">R$ {{$item->areceber}}</td>
+                </tr> 
                 @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="14" class="text-end">Total</th>
-                    <th class="td-prices">R$: {{$total}}</th>
-                </tr>
-            </tfoot>
           </table>  
-
     </div>
-    
 @endsection  

@@ -51,7 +51,7 @@
                 <th>Nº</th>
                 <th>Material</th>
                 <th>Qtd</th>
-                <th>Handle</th>
+                <th>Valor</th>
               </tr>
             </thead>
             <tbody>
@@ -69,7 +69,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_1_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_1_value > 0)
+                            R$: {{$budget->product_1_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -85,7 +91,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_2_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_2_value > 0)
+                            R$: {{$budget->product_2_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
@@ -101,7 +113,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_3_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_3_value > 0)
+                            R$: {{$budget->product_3_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
@@ -117,7 +135,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_4_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_4_value > 0)
+                            R$: {{$budget->product_4_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
@@ -133,7 +157,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_5_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_5_value > 0)
+                            R$: {{$budget->product_5_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>6</td>
@@ -149,7 +179,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_6_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_6_value > 0)
+                            R$: {{$budget->product_6_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>7</td>
@@ -165,7 +201,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_7_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_7_value > 0)
+                            R$: {{$budget->product_7_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>8</td>
@@ -181,7 +223,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_8_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_8_value > 0))
+                            R$: {{$budget->product_8_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>9</td>
@@ -197,7 +245,13 @@
                         @endif
                     </td>
                     <td>{{$budget->product_9_qtd}}</td>
-                    <td>@mdo</td>
+                    <td>
+                        @if ($budget->product_9_value > 0)
+                            R$: {{$budget->product_9_value}}                      
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
             </tbody>
             <tfoot>
